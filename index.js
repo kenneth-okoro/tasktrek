@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 
 const todosRouter = require('./routes/todos.route');
+const connectToDatabase = require('./database/mongodb');
 
 // Middleware
 app.use(helmet()); // for security headers
@@ -19,6 +20,8 @@ app.use('/api/todos', todosRouter);
 
 // Custom Middleware
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Server is running on port ${PORT}`);
+
+  await connectToDatabase();
 });
